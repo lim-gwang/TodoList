@@ -2,7 +2,6 @@ import React , {Component} from 'react';
 
 class TodoItem extends Component {
 
-    
     render() {
         return (
             <li className={this.props.item.done ? 'completed' : ''}>
@@ -11,7 +10,7 @@ class TodoItem extends Component {
                         className="toggle"
                         type="checkbox"
                         checked={this.props.item.done}
-                        onClick={() => this.props.onToggle(this.props.id)}
+                        onChange={() => this.props.onToggle(this.props.id)}
                     />
                     <label>{this.props.item.text}</label>
                     <button
@@ -19,7 +18,7 @@ class TodoItem extends Component {
                         onClick={() => this.props.delTodo(this.props.id)}
                     />
                 </div>
-                <input className="edit" value="Create a TodoMVC template" />
+                {/* <input className="edit" value="Create a TodoMVC template" /> */}
             </li>
         )
     }

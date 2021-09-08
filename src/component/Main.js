@@ -10,14 +10,15 @@ class Main extends Component {
                     id="toggle-all"
                     className="toggle-all"
                     type="checkbox"
-                    onClick={this.props.allCheckToggle}
+                    onChange={this.props.allCheckToggle}
                 />
-                <label for="toggle-all">Mark all as complete</label>
+                <label htmlFor="toggle-all">Mark all as complete</label>
                 <ul className="todo-list">
                     {
                         this.props.todos.map(item => {
                             return (
-                                <TodoItem 
+                                <TodoItem
+                                    key={item.id}
                                     id={item.id} 
                                     item={item} 
                                     onToggle={this.props.onToggle}
