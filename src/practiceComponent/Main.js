@@ -17,7 +17,7 @@ class Main extends React.Component {
             />
             <label htmlFor="toggle-all">Mark all as complete</label>
             <ul className="todo-list">
-                <Route exact={true} path="/">
+                <Route exact path="/">
                     {
                       this.props.todos.map(todo => {
                         return ( 
