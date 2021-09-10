@@ -56,7 +56,7 @@ class TodoApp extends React.Component {
   // 3. 아이템 삭제
   delTodo = id => {
     const todos = this.state.todos.filter(todo => todo.id !== id);
-
+  
     this.setState({
       todos,
     });
@@ -89,8 +89,19 @@ class TodoApp extends React.Component {
     });
   }
 
+  // 7. 텍스트 수정
+  textChange = (id, text) => {
+    const selectTodo = this.state.todos.map(todo => {
+      if(todo.id === id) {
+        todo['text'] = text;
+      }
+      return todo
+    });
+    this.setState({
+        todos: selectTodo,
+    })
+  }
   render() {
-
     const leftItems = this.state.todos.filter(todo => !todo.done).legnth;
 
     return(
@@ -103,8 +114,10 @@ class TodoApp extends React.Component {
           onToggle={this.onToggle}
           delTodo={this.delTodo}
           allToggle={this.allToggle}
+          textChange={this.textChange}
         />
         <Footer
+          todos={this.state.todos}
           leftItems={leftItems}
           comDel={this.comDel}
         />

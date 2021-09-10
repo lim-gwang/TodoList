@@ -2,7 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 class Footer extends React.Component {
+
   render() {
+    const todoCheck = this.props.todos.findIndex(todo => todo.done) + 1;
+
     return(
         <footer className="footer">
             <span className="todo-count">
@@ -13,7 +16,7 @@ class Footer extends React.Component {
             </span>
             <ul className="filters">
                 <li>
-                    <Link exact to="/" className="selected">All</Link>
+                    <Link exact="true" to="/" className="selected">All</Link>
                 </li>
                 <li>
                     <Link to="/active">Active</Link>
@@ -22,10 +25,16 @@ class Footer extends React.Component {
                     <Link to="/completed">Completed</Link>
                 </li>
             </ul>
-            <button 
-              className="clear-completed"
-              onClick={this.props.comDel}
-            >Clear completed</button>
+            { 
+              todoCheck
+              ? <button 
+                className="clear-completed"
+                onClick={this.props.comDel}
+                >
+                  Clear completed
+                </button> 
+              : ''
+            }
         </footer>
     )
   }

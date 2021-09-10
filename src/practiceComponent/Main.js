@@ -1,12 +1,12 @@
 import React from 'react'
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import TodoItem from './TodoItem';
 
 class Main extends React.Component {
+  
   render() {
-    const ActiveTodo = this.props.todos.filter(todo => todo.done === false);
+    const ActiveTodo = this.props.todos.filter(todo => !todo.done);
     const CompletedTodo = this.props.todos.filter(todo => todo.done);
-
     return(
         <section className="main">
             <input
@@ -17,6 +17,7 @@ class Main extends React.Component {
             />
             <label htmlFor="toggle-all">Mark all as complete</label>
             <ul className="todo-list">
+              <Switch>
                 <Route exact path="/">
                     {
                       this.props.todos.map(todo => {
@@ -28,6 +29,7 @@ class Main extends React.Component {
                               done={todo.done}
                               onToggle={this.props.onToggle}
                               delTodo={this.props.delTodo}
+                              textChange={this.props.textChange}
                             />
                           )
                         })
@@ -65,6 +67,15 @@ class Main extends React.Component {
                         })
                       }
                 </Route>
+                <Route>
+                      <li>
+                        <div className="view">
+                            Error! <br/>
+                            No Match..
+                        </div>
+                      </li>
+                </Route>
+              </Switch>
             </ul>
         </section>
     )
