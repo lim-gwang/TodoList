@@ -1,51 +1,39 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux'
+import { addTodo } from '../store/todos/actions'
 
-class Header extends Component {
-    constructor(props) {
-        super(props);
+function Header() {
+  const dispatch = useDispatch()
+  const [value, setValue] = useState('')
 
-        this.state = {
-            text: '',
-        };
+  const changeHandler = e => {
+    setValue(e.target.value)
+  }
 
-    };
-
-    handleChange = e => {
-        this.setState({
-            text: e.target.value,
-        });
-    };
-
-    handleKeyUp = e => {
-
-        if (e.key !== 'Enter') return;
-
-        if (!e.target.value) return;
-
-        const value = this.state.text;
-
-        this.props.addTodo(value);
-    
-        this.setState({
-            text: '',
-        });
-    };
-
-    render() {
-        return (
-            <header className="header">
-                <h1>todos</h1>
-                <input
-                    className="new-todo"
-                    placeholder="What needs to be done?"
-                    onChange={this.handleChange}
-                    onKeyUpCapture={this.handleKeyUp}
-                    value={this.state.text}
-                />
-            </header>
-        )
+  const keyDownHandler = e => {
+    if (e.key !== 'Enter') {
+      return
     }
+
+    if (value.trim() === '') {
+      return
+    }
+
+    dispatch(addTodo(value.trim()))
+  }
+
+  return(
+    <header className="header">
+        <h1>todos</h1>
+        <input
+          className="new-todo"
+          placeholder="What needs to be done?"
+          onChange={changeHandler}
+          onKeyDown={keyDownHandler}
+          value={value}
+        />
+    </header>
+  )
 }
 
 export default Header;
-

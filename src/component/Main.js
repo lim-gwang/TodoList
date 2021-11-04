@@ -1,36 +1,29 @@
-import React , {Component} from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { todosSelector } from '../store/todos/selectors';
 import TodoItem from './TodoItem';
 
-class Main extends Component {
+function Main() {
+  const todos = useSelector(todosSelector)
+  
+  const itemFilter = todos.map(todo=> (
+    <TodoItem
+      key={todo.id}
+      id={todo.id}
+      text={todo.text}
+      done={todo.done}
+    />
+  ))
 
-    render() {
-        return (
-            <section className="main">
-                <input 
-                    id="toggle-all"
-                    className="toggle-all"
-                    type="checkbox"
-                    onChange={this.props.allCheckToggle}
-                />
-                <label htmlFor="toggle-all">Mark all as complete</label>
-                <ul className="todo-list">
-                    {
-                        this.props.todos.map(item => {
-                            return (
-                                <TodoItem
-                                    key={item.id}
-                                    id={item.id} 
-                                    item={item} 
-                                    onToggle={this.props.onToggle}
-                                    delTodo={this.props.delTodo}
-                                />
-                            )
-                        })
-                    }
-                </ul>
-            </section>
-        )
-    }
+  return(
+    <section className="main">
+      <input id="toggle-all"className="toggle-all" type="checkbox"/>
+      <label for="toggle-all">Mark all as complete</label>
+      <ul className="todo-list">
+        {itemFilter}
+      </ul>
+    </section>
+  )
 }
 
 export default Main;
