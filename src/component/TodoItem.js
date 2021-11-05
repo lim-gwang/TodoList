@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux'
-import { toggleTodo } from '../store/todos/actions'
+import { toggleTodo, delTodo } from '../store/todos/actions'
 
 function TodoItem({id, text, done }) {
   const dispatch = useDispatch()
@@ -13,15 +13,18 @@ function TodoItem({id, text, done }) {
     <li className={done ? 'completed' : ''}>
         <div className="view">
             <input
-             className="toggle"
+              className="toggle"
               type="checkbox"
               checked={done}
               onChange={handleChange}
             />
             <label>{text}</label>
-            <button className="destroy"/>
+            <button 
+              className="destroy"
+              onClick={() => dispatch(delTodo(id))}
+            />
         </div>
-        <input className="edit" value="Create a TodoMVC template" />
+        <input className="edit" defaultValue="Create a TodoMVC template" />
     </li>
   )
 }

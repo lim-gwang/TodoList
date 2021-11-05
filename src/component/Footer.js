@@ -1,17 +1,21 @@
 import React from 'react';
-import { useDispatch } from 'react-redux'
-import { filterTodo } from '../store/todos/actions'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { filterTodo, clearCompleted } from '../store/todos/actions'
 function Footer() {
   const dispatch = useDispatch()
+  const todos = useSelector(state => (
+    state.todos.items
+  ))
+
+  const todoChecked = todos.filter(todo => !todo.done).length;
 
   const dispatchFilter = filterType => dispatch(filterTodo(filterType))
-
+  
   return(
     <footer className="footer">
       <span className="todo-count">
           <strong>
-              2
+            {todoChecked}
           </strong>
           item left
       </span>
@@ -26,7 +30,12 @@ function Footer() {
               <a href="#/completed" onClick={() => dispatchFilter('completed')}>Completed</a>
           </li>
       </ul>
-      <button className="clear-completed">Clear completed</button>
+      <button 
+        className="clear-completed"
+        onClick={() => dispatch(clearCompleted())}
+      >
+        Clear completed
+      </button>
     </footer>
   )
 }

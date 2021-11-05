@@ -20,6 +20,7 @@ function Header() {
     }
 
     dispatch(addTodo(value.trim()))
+    setValue('')
   }
 
   return(
